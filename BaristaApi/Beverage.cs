@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System;
 
-public interface IBeverage{
-	List<string> Ingredients { get; }
+public interface IBeverage
+{
+    List<string> Ingredients { get; }
     string CupType { get; }
 
 
@@ -14,6 +15,7 @@ class FluentEspresso
     public static void Validate() => Console.WriteLine("Rätt temperatur för vattnet");
 
     public static void GrindBeans() => Console.WriteLine("Rätt temperatur för vattnet");
+    public static void AddMilk() => Console.WriteLine("Lägger till mjölk!");
     public static void ToBeverage() => Console.WriteLine("DU en sån här dryck.");
 
 
@@ -28,41 +30,21 @@ class FluentEspresso
 
 }
 
-class Espresso : IBeverage
+[AttributeUsage(AttributeTargets.Class)]
+class EspressoAttribute : Attribute
 {
-    private List<string> ingredients = new List<string>() { "Espresso" };
-
-    private string cupType = "small cup";
-
-    public Espresso(string ingredients, string cupType)
+    public byte Temperature { get; set; }
+    //    public List<string> Ingredients;
+    //    public string CupType { get; set; }
+    //}
+}
+    class Bean
     {
+        private int amountIng;
+        private string sort;
+
+        public int AmountInG => amountIng;
+        public string Sort => sort;
+
 
     }
-    public List<string> Ingredients => ingredients;
-
-
-
-    public string CupType => cupType;
-}
-
-class Latte : IBeverage
-{
-    private List<string> ingredients = new List<string>() { "Espresso", "Milk" };
-
-    public List<string> Ingredients => ingredients;
-
-    private string cupType = "glass";
-
-    public string CupType => cupType;
-}
-
-class Bean
-{
-    private int amountIng;
-    private string sort;
-
-    public int AmountInG => amountIng;
-    public string Sort => sort;
-    
-
-}
