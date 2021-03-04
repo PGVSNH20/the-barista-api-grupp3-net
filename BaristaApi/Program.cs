@@ -26,7 +26,6 @@ namespace BaristaApi
             {
                 Console.WriteLine(type.Name);
 
-
                 PropertyInfo[] propertyInfos = null;
                 propertyInfos = type.GetProperties();
                 foreach (var prop in propertyInfos)

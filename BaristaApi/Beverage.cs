@@ -11,24 +11,53 @@ public interface IBeverage
 class FluentEspresso
 {
 
-    private List<string> ingredients = new List<string>();
+    private static List<string> ingredients = new List<string>();
+    public static bool containsWater = false;
 
-   
+
     public List<string> Ingredients => Ingredients;
 
 
-    public static bool containsWater = false;
-
-    
-    public static void AddWater(byte water) => containsWater = (water > 0) ? true : false;
 
 
-    public static void AddBeans() => Console.WriteLine("Lägger till bönor!");
+    public static bool AddWater(byte water) => containsWater = (water > 0) ? true : false;
+
+
+    public static void AddBeans(Bean bean)
+    {
+        if (containsWater && bean.AmountInG == 5)
+        {
+            ingredients.Add("Espresso");
+        }
+    }
+
+
+    //Console.WriteLine("Lägger till bönor!");
     public static void Validate() => Console.WriteLine("Rätt temperatur för vattnet");
 
-    public static void GrindBeans() => Console.WriteLine("Rätt temperatur för vattnet");
+    public static void GrindBeans()
+    {
+
+
+
+
+    }
+    //=> Console.WriteLine("Rätt temperatur för vattnet");
     public static void AddMilk() => Console.WriteLine("Lägger till mjölk!");
-    public static void ToBeverage() => Console.WriteLine("DU en sån här dryck.");
+
+
+    private FluentEspresso CompareList(FluentEspresso fluentEspresso)
+    {
+        
+        Console.WriteLine(fluentEspresso + "jämför");
+        return fluentEspresso;
+    }
+    public FluentEspresso ToBeverage()
+    {
+        return CompareList(this);
+
+        //return this;
+    }
 
 
 
@@ -50,13 +79,13 @@ class EspressoAttribute : Attribute
     //    public string CupType { get; set; }
     //}
 }
-    class Bean
-    {
-        private int amountIng;
-        private string sort;
+class Bean
+{
+    private int amountIng;
+    private string sort;
 
-        public int AmountInG => amountIng;
-        public string Sort => sort;
+    public int AmountInG => amountIng;
+    public string Sort => sort;
 
 
-    }
+}
