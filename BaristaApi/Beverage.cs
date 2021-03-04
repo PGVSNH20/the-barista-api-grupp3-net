@@ -12,32 +12,43 @@ public interface IBeverage
 internal interface IFluentEspresso
 {
     IFluentEspresso AddWater(int v);
-    IFluentEspresso AddBeans(Bean bean);
+    IFluentEspresso AddBeans();
+    IFluentEspresso AddMilk();
     IBeverage ToBeverage();
 }
 [Espresso]
-class FluentEspresso : IFluentEspresso
+internal class FluentEspresso : IFluentEspresso
 {
 
     private static List<string> ingredients = new List<string>();
     public static bool containsWater = false;
 
 
-    public List<string> Ingredients => Ingredients;
+    public List<string> Ingredients => ingredients;
 
     //public static bool AddWater(int water) => containsWater = (water > 0) ? true : false;
     public IFluentEspresso AddWater(int water)
     {
         return this;
     }
-
-
-    public IFluentEspresso AddBeans(Bean bean)
+    public IFluentEspresso AddMilk()
     {
-        if (containsWater && bean.AmountInG == 5)
-        {
-            ingredients.Add("Espresso");
-        }
+        //if (containsWater && amount > 4)
+        //{
+        //    ingredients.Add("Espresso");
+        //}
+        ingredients.Add("Milk");
+        return this;
+
+    }
+
+    public IFluentEspresso AddBeans()
+    {
+        //if (containsWater && amount > 4)
+        //{
+        //    ingredients.Add("Espresso");
+        //}
+        ingredients.Add("Espresso");
         return this;
 
     }
@@ -54,32 +65,56 @@ class FluentEspresso : IFluentEspresso
 
     }
     //=> Console.WriteLine("Rätt temperatur för vattnet");
-    public static void AddMilk() => Console.WriteLine("Lägger till mjölk!");
 
 
-    private FluentEspresso CompareList(FluentEspresso fluentEspresso)
-    {
-        
-        Console.WriteLine(fluentEspresso + "jämför");
-        return fluentEspresso;
-    }
-    //public FluentEspresso ToBeverage()
-    //{
-    //    return CompareList(this);
 
-    //    //return this;
-    //}
 
     public IBeverage ToBeverage()
     {
-        Espresso espresso = new Espresso("N/A", "N/A");
+
+        Espresso espresso = new Espresso();
+        Cappuccino cappuccino = new Cappuccino();
+
+        List<IBeverage> beverages = new List<IBeverage>() { espresso, cappuccino };
 
         // Check if all ingrediens are present for a espesso or a latte
-        if (true)
+        return CheckIngredients(beverages);
+    }
+
+    private IBeverage CheckIngredients(List<IBeverage> beverages)
+    {
+        foreach (var beverage in beverages)
         {
-            return espresso;
+            if (this.Ingredients.Count == beverage.Ingredients.Count)
+            {
+                foreach (var i in this.Ingredients)
+                {
+                    for (int x = 0; x < beverage.Ingredients.Count; x++)
+                    {
+                        if (i == beverage.Ingredients[x])
+                        {
+                            if (x == beverage.Ingredients.Count -1)
+                            {
+                                Console.WriteLine(beverage);
+                                return beverage;
+                            }
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Nu blev något fel");
+                            continue;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Olika antal element");
+                continue;
+            }
         }
-        else return espresso;
+        return null;
     }
 
 
@@ -100,6 +135,8 @@ class EspressoAttribute : Attribute
     //    public string CupType { get; set; }
     //}
 }
+
+// Lägg till klassen senare i AddBeans(), försöker få allt att fungera nu
 class Bean
 {
     private int amountIng;
