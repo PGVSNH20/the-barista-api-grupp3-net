@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using BaristaApi.Beverages;
 
 public interface IBeverage
 {
@@ -8,7 +9,13 @@ public interface IBeverage
 
 
 }
-class FluentEspresso
+internal interface IFluentEspresso
+{
+    IFluentEspresso AddWater(int v);
+    IBeverage ToBeverage();
+}
+[Espresso]
+class FluentEspresso : IFluentEspresso
 {
 
     private static List<string> ingredients = new List<string>();
@@ -20,7 +27,11 @@ class FluentEspresso
 
 
 
-    public static bool AddWater(byte water) => containsWater = (water > 0) ? true : false;
+    //public static bool AddWater(int water) => containsWater = (water > 0) ? true : false;
+    public IFluentEspresso AddWater(int water)
+    {
+        return this;
+    }
 
 
     public static void AddBeans(Bean bean)
@@ -52,14 +63,19 @@ class FluentEspresso
         Console.WriteLine(fluentEspresso + "jämför");
         return fluentEspresso;
     }
-    public FluentEspresso ToBeverage()
+    //public FluentEspresso ToBeverage()
+    //{
+    //    return CompareList(this);
+
+    //    //return this;
+    //}
+
+    public IBeverage ToBeverage()
     {
-        return CompareList(this);
-
-        //return this;
+        Espresso espresso;
+        // Check if all ingrediens are present for a espesso or a latte
+        return null;
     }
-
-
 
 
     /* AddWater(20)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BaristaApi.Beverages
 {
     [Espresso]
-    class Espresso : IBeverage
+    public class Espresso : IBeverage
     {
 
         private List<string> ingredients = new List<string>() { "Espresso" };

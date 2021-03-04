@@ -18,13 +18,22 @@ namespace BaristaApi
             //latte is type of Latte 
              */
 
+            IBeverage beverage = new FluentEspresso()
+                   .AddWater(20)
+                   .AddWater(2)
+                   .AddWater(3)
+                   .ToBeverage();
+
+
+
+
             var beverages = from type in Assembly.GetExecutingAssembly().GetTypes()
                             where type.GetCustomAttributes<EspressoAttribute>().Count() > 0
                             select type;
 
             foreach (var type in beverages)
             {
-                Console.WriteLine(type.Name);
+                Console.WriteLine(type.Name +  "\t" + type.BaseType);
 
                 PropertyInfo[] propertyInfos = null;
                 propertyInfos = type.GetProperties();
@@ -33,7 +42,12 @@ namespace BaristaApi
                     Console.WriteLine("\tProperties: " + prop.Name);
                     //Console.WriteLine("\t\tProperties value: " + prop.GetValue(type, null));
 
-
+                    var met = type.GetMethods();
+                    foreach (var m in met)
+                    {
+                        Console.WriteLine(m);
+                    }
+                    
                     if (prop is IEnumerable)
                     {
                         foreach (var listitem in prop as IEnumerable)
