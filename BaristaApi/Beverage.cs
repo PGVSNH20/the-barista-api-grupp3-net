@@ -12,6 +12,7 @@ public interface IBeverage
 internal interface IFluentEspresso
 {
     IFluentEspresso AddWater(int v);
+    IFluentEspresso AddBeans(Bean bean);
     IBeverage ToBeverage();
 }
 [Espresso]
@@ -31,12 +32,14 @@ class FluentEspresso : IFluentEspresso
     }
 
 
-    public static void AddBeans(Bean bean)
+    public IFluentEspresso AddBeans(Bean bean)
     {
         if (containsWater && bean.AmountInG == 5)
         {
             ingredients.Add("Espresso");
         }
+        return this;
+
     }
 
 
@@ -69,11 +72,14 @@ class FluentEspresso : IFluentEspresso
 
     public IBeverage ToBeverage()
     {
-        Espresso espresso = new Espresso(); 
+        Espresso espresso = new Espresso("N/A", "N/A");
 
         // Check if all ingrediens are present for a espesso or a latte
-
-        return espresso;
+        if (true)
+        {
+            return espresso;
+        }
+        else return espresso;
     }
 
 
