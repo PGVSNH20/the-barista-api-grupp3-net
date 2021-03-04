@@ -24,9 +24,6 @@ class FluentEspresso : IFluentEspresso
 
     public List<string> Ingredients => Ingredients;
 
-
-
-
     //public static bool AddWater(int water) => containsWater = (water > 0) ? true : false;
     public IFluentEspresso AddWater(int water)
     {
@@ -72,9 +69,11 @@ class FluentEspresso : IFluentEspresso
 
     public IBeverage ToBeverage()
     {
-        Espresso espresso;
+        Espresso espresso = new Espresso(); 
+
         // Check if all ingrediens are present for a espesso or a latte
-        return null;
+
+        return espresso;
     }
 
 
