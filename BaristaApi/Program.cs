@@ -22,9 +22,10 @@ namespace BaristaApi
                    .AddWater(20)
                    .AddWater(2)
                    .AddWater(3)
-                   .AddBeans();
+                   .AddBeans()
+                   .AddMilk()
                    .ToBeverage();
-
+            Console.ReadKey();
 
 
 

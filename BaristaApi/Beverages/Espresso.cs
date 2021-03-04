@@ -10,18 +10,17 @@ namespace BaristaApi.Beverages
     public class Espresso : IBeverage
     {
 
-        private List<string> ingredients = new List<string>() { "Espresso" };
+        private List<string> ingredients = new List<string>() { "Espresso"};
 
         private string cupType = "small cup";
 
-        public Espresso(string ingredients, string cupType)
-        {
-
-        }
-        public List<string> Ingredients => Ingredients;
-
-
+        public List<string> Ingredients => ingredients;
 
         public string CupType => cupType;
+
+        public override string ToString()
+        {
+            return "Det här är en Espresso";
+        }
     }
 }
