@@ -10,7 +10,19 @@ public interface IBeverage
 }
 class FluentEspresso
 {
-    public static void AddWater() => Console.WriteLine("Lägger till vatten!");
+
+    private List<string> ingredients = new List<string>();
+
+   
+    public List<string> Ingredients => Ingredients;
+
+
+    public static bool containsWater = false;
+
+    
+    public static void AddWater(byte water) => containsWater = (water > 0) ? true : false;
+
+
     public static void AddBeans() => Console.WriteLine("Lägger till bönor!");
     public static void Validate() => Console.WriteLine("Rätt temperatur för vattnet");
 
