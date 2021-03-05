@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BaristaApi.Beverages
 {
@@ -16,5 +12,9 @@ namespace BaristaApi.Beverages
         private string cupType = "glass";
 
         public string CupType => cupType;
+        public override string ToString()
+        {
+            return "Det här är en Latte";
+        }
     }
 }

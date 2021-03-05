@@ -1,13 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BaristaApi.Beverages
 {
     [Espresso]
-    class Americano
+    class Americano : IBeverage
     {
+
+        private List<string> ingredients = new List<string>() { "Espresso", "Water" };
+
+        private string cupType = "small cup";
+
+        public List<string> Ingredients => ingredients;
+
+        public string CupType => cupType;
+
+        public override string ToString()
+        {
+            return "Det här är en Americano";
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using BaristaApi.Beverages;
+using System.Linq;
 
 public interface IBeverage
 {
@@ -83,6 +84,13 @@ internal class FluentEspresso : IFluentEspresso
 
     private IBeverage CheckIngredients(List<IBeverage> beverages)
     {
+        foreach (var bev in beverages.Where(bev => bev.Ingredients.Count == this.Ingredients.Count))
+        {
+            foreach (var i in this.Ingredients)
+            {
+            }
+        }
+
         foreach (var beverage in beverages)
         {
             if (this.Ingredients.Count == beverage.Ingredients.Count)
