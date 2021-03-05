@@ -24,6 +24,7 @@ namespace BaristaApi
                    .AddWater(3)
                    .AddBeans()
                    .AddMilk()
+                   .AddChocolateSyrup()
                    .ToBeverage();
             Console.ReadKey();
 

@@ -15,6 +15,8 @@ internal interface IFluentEspresso
     IFluentEspresso AddWater(int v);
     IFluentEspresso AddBeans();
     IFluentEspresso AddMilk();
+    IFluentEspresso AddChocolateSyrup();
+    IFluentEspresso AddMilkFoam();
     IBeverage ToBeverage();
 }
 [Espresso]
@@ -32,15 +34,26 @@ internal class FluentEspresso : IFluentEspresso
     {
         return this;
     }
+
     public IFluentEspresso AddMilk()
     {
-        //if (containsWater && amount > 4)
-        //{
-        //    ingredients.Add("Espresso");
-        //}
+
         ingredients.Add("Milk");
         return this;
+    }
 
+    public IFluentEspresso AddChocolateSyrup()
+    {
+
+        ingredients.Add("ChocolateSyrup");
+        return this;
+    }
+
+    public IFluentEspresso AddMilkFoam()
+    {
+
+        ingredients.Add("Milk Foam");
+        return this;
     }
 
     public IFluentEspresso AddBeans()
@@ -75,8 +88,12 @@ internal class FluentEspresso : IFluentEspresso
 
         Espresso espresso = new Espresso();
         Cappuccino cappuccino = new Cappuccino();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+        Mocha mocha = new Mocha();
+        Macchiato macchiato = new Macchiato();
 
-        List<IBeverage> beverages = new List<IBeverage>() { espresso, cappuccino };
+        List<IBeverage> beverages = new List<IBeverage>() { espresso, cappuccino, americano, latte, mocha, macchiato };
 
         // Check if all ingrediens are present for a espesso or a latte
         return CheckIngredients(beverages);
@@ -88,38 +105,23 @@ internal class FluentEspresso : IFluentEspresso
         {
             foreach (var i in this.Ingredients)
             {
-            }
-        }
-
-        foreach (var beverage in beverages)
-        {
-            if (this.Ingredients.Count == beverage.Ingredients.Count)
-            {
-                foreach (var i in this.Ingredients)
+                for (int x = 0; x < bev.Ingredients.Count; x++)
                 {
-                    for (int x = 0; x < beverage.Ingredients.Count; x++)
+                    if (i == bev.Ingredients[x])
                     {
-                        if (i == beverage.Ingredients[x])
+                        if (x == bev.Ingredients.Count - 1)
                         {
-                            if (x == beverage.Ingredients.Count -1)
-                            {
-                                Console.WriteLine(beverage);
-                                return beverage;
-                            }
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("Nu blev något fel");
-                            continue;
+                            Console.WriteLine(bev);
+                            return bev;
                         }
                     }
+
+                    else
+                    {
+                        Console.WriteLine(i);
+                        continue;
+                    }
                 }
-            }
-            else
-            {
-                Console.WriteLine("Olika antal element");
-                continue;
             }
         }
         return null;
