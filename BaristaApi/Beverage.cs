@@ -82,16 +82,11 @@ internal class FluentEspresso : IFluentEspresso
 
     public static void GrindBeans()
     {
-
-
-
-
     }
     //=> Console.WriteLine("Rätt temperatur för vattnet");
   
     public IBeverage ToBeverage()
     {
-
         bool IsComparableList = false;        
         // Check if all ingrediens are present for a espesso or a latte
 
