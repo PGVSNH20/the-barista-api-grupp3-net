@@ -15,7 +15,9 @@ namespace BaristaAPI.tests
             var beverage = new FluentEspresso().AddWater(20).AddBeans().ToBeverage();
 
             // Assert
-            Assert.IsType<Espresso>(beverage);
+
+            Assert.Equal(20, beverage.Water);
+            //Assert.IsType<Espresso>(beverage);
         }
 
         [Fact]
@@ -64,10 +66,12 @@ namespace BaristaAPI.tests
             //string expected = "Espresso";
 
             // Act
-            var bev = new FluentEspresso().AddWater(20).AddBeans().AddWater(5).ToBeverage();
+            var bev = new FluentEspresso().AddWater(20).AddBeans().AddBeans().AddWater(0).ToBeverage();
 
             // Assert
+            Assert.Equal(20, bev.Water);
             Assert.IsType<Americano>(bev);
+            //Assert.IsType<Americano>(bev);
         }
 
         [Fact]

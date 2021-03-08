@@ -6,6 +6,7 @@ using System.Linq;
 public interface IBeverage
 {
     List<string> Ingredients { get; }
+    int Water { get; }
     string CupType { get; }
 
 
@@ -34,12 +35,20 @@ internal class FluentEspresso : IFluentEspresso
     };
 
     private static List<string> ingredients = new List<string>();
+    private static int water = new int();
 
     public List<string> Ingredients => ingredients;
+    public int Water = water;
 
     //public static bool AddWater(int water) => containsWater = (water > 0) ? true : false;
-    public IFluentEspresso AddWater(int water)
+    public IFluentEspresso AddWater(int v)
     {
+        if (!ingredients.Contains("Water"))
+        {
+            ingredients.Add("Water");
+        }      
+        water = (this.Water +=v);
+        
         return this;
     }
 
@@ -96,7 +105,7 @@ internal class FluentEspresso : IFluentEspresso
             Console.WriteLine($"Den nya dryckan innehåller bara ingredienser som finns i {beverage.GetType().Name}s ingredienslista: " + IsComparableList); if (IsComparableList)
             {
                 Console.WriteLine("Du fick en " + beverage.GetType().Name); Console.WriteLine("Dryckens innehåll:"); 
-                beverage.Ingredients.ForEach(ing => Console.WriteLine("\t" + ing));
+                beverage.Ingredients.ForEach(ing => Console.WriteLine("\t" + ing));               
                 this.Ingredients.Clear();
                 return beverage;
             }

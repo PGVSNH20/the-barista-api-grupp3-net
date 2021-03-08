@@ -8,10 +8,18 @@ namespace BaristaApi.Beverages
 {
     class CustomBeverage : IBeverage
     {
-        private string cupType = "Valfri kopp"; public List<string> Ingredients { get; set; }
-        public string CupType => cupType; public override string ToString()
+        public List<string> Ingredients { get; set; }
+
+        private string cupType = "Valfri kopp"; 
+        
+        public string CupType => cupType; 
+        public override string ToString()
         {
             return "Det här är en Macchiato";
         }
+
+        public int Water => water;
+
+        private int water = 20;
     }
 }
