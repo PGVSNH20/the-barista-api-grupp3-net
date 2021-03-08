@@ -17,5 +17,18 @@ namespace BaristaAPI.tests
             // Assert
             Assert.IsType<Espresso>(beverage);
         }
+
+        [Fact]
+        public void When_AddingEspressoAndMilk_Expect_Latte()
+        {
+            // Arrange
+            //string expected = "Espresso";
+
+            // Act
+            var beverage = new FluentEspresso().AddWater(20).AddBeans().ToBeverage();
+
+            // Assert
+            Assert.IsType<Latte>(beverage);
+        }
     }
 }
