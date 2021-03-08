@@ -26,7 +26,6 @@ internal class FluentEspresso : IFluentEspresso
     private static List<string> ingredients = new List<string>();
     public static bool containsWater = false;
 
-
     public List<string> Ingredients => ingredients;
 
     //public static bool AddWater(int water) => containsWater = (water > 0) ? true : false;
@@ -45,7 +44,7 @@ internal class FluentEspresso : IFluentEspresso
     public IFluentEspresso AddChocolateSyrup()
     {
 
-        ingredients.Add("ChocolateSyrup");
+        ingredients.Add("Chocolate Syrup");
         return this;
     }
 
@@ -55,6 +54,7 @@ internal class FluentEspresso : IFluentEspresso
         ingredients.Add("Milk Foam");
         return this;
     }
+
 
     public IFluentEspresso AddBeans()
     {
@@ -80,23 +80,32 @@ internal class FluentEspresso : IFluentEspresso
     }
     //=> Console.WriteLine("Rätt temperatur för vattnet");
 
-
-
-
     public IBeverage ToBeverage()
     {
-
         Espresso espresso = new Espresso();
         Cappuccino cappuccino = new Cappuccino();
         Americano americano = new Americano();
         Latte latte = new Latte();
         Mocha mocha = new Mocha();
-        Macchiato macchiato = new Macchiato();
-
-        List<IBeverage> beverages = new List<IBeverage>() { espresso, cappuccino, americano, latte, mocha, macchiato };
-
+        Macchiato macchiato = new Macchiato(); List<IBeverage> beverages = new List<IBeverage>() { espresso, cappuccino, americano, latte, mocha, macchiato }; 
+        
+        bool IsComparableList = false;        
         // Check if all ingrediens are present for a espesso or a latte
-        return CheckIngredients(beverages);
+
+        foreach (var beverage in beverages.Where(bev => this.Ingredients.Count.Equals(bev.Ingredients.Count)))
+        {
+            IsComparableList = this.Ingredients.All(ingredient => beverage.Ingredients.Contains(ingredient));
+            Console.WriteLine($"Den nya dryckan innehåller bara ingredienser som finns i {beverage.GetType().Name}s ingredienslista: " + IsComparableList); if (IsComparableList)
+            {
+                Console.WriteLine("Du fick en " + beverage.GetType().Name); Console.WriteLine("Dryckens innehåll:"); 
+                beverage.Ingredients.ForEach(ing => Console.WriteLine("\t" + ing));
+                this.Ingredients.Clear();
+                return beverage;
+            }
+        }
+        CustomBeverage custom = new CustomBeverage { Ingredients = this.Ingredients }; Console.WriteLine("Drycken blev en " + custom.GetType().Name);
+        this.Ingredients.Clear();       
+        return custom;
     }
 
     //Kommentar
@@ -119,7 +128,7 @@ internal class FluentEspresso : IFluentEspresso
 
                     else
                     {
-                        Console.WriteLine(i);
+                        Console.WriteLine(i + " Är vi här ?");
                         continue;
                     }
                 }
