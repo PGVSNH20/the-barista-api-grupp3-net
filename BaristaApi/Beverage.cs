@@ -19,12 +19,21 @@ internal interface IFluentEspresso
     IFluentEspresso AddMilkFoam();
     IBeverage ToBeverage();
 }
+
 [Espresso]
 internal class FluentEspresso : IFluentEspresso
 {
+    public static List<IBeverage> avaibleBeverages = new List<IBeverage>()
+    {
+        new Espresso(),
+        new Cappuccino(),
+        new Americano(),
+        new Latte(),
+        new Mocha(),
+        new Macchiato()
+    };
 
     private static List<string> ingredients = new List<string>();
-    public static bool containsWater = false;
 
     public List<string> Ingredients => ingredients;
 
@@ -79,20 +88,14 @@ internal class FluentEspresso : IFluentEspresso
 
     }
     //=> Console.WriteLine("Rätt temperatur för vattnet");
-
+  
     public IBeverage ToBeverage()
     {
-        Espresso espresso = new Espresso();
-        Cappuccino cappuccino = new Cappuccino();
-        Americano americano = new Americano();
-        Latte latte = new Latte();
-        Mocha mocha = new Mocha();
-        Macchiato macchiato = new Macchiato(); List<IBeverage> beverages = new List<IBeverage>() { espresso, cappuccino, americano, latte, mocha, macchiato }; 
-        
+
         bool IsComparableList = false;        
         // Check if all ingrediens are present for a espesso or a latte
 
-        foreach (var beverage in beverages.Where(bev => this.Ingredients.Count.Equals(bev.Ingredients.Count)))
+        foreach (var beverage in avaibleBeverages.Where(bev => this.Ingredients.Count.Equals(bev.Ingredients.Count)))
         {
             IsComparableList = this.Ingredients.All(ingredient => beverage.Ingredients.Contains(ingredient));
             Console.WriteLine($"Den nya dryckan innehåller bara ingredienser som finns i {beverage.GetType().Name}s ingredienslista: " + IsComparableList); if (IsComparableList)
