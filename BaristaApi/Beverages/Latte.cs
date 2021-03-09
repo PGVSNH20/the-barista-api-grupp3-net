@@ -5,7 +5,7 @@ namespace BaristaApi.Beverages
     [Espresso(Temperature = 92)]
     class Latte : IBeverage
     {
-        private List<string> ingredients = new List<string>() { "Espresso", "Milk", "Water" };
+        private List<string> ingredients = new List<string>() { "Espresso", "Milk"};
 
         public List<string> Ingredients => ingredients;
 

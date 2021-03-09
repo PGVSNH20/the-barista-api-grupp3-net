@@ -5,7 +5,7 @@ namespace BaristaApi.Beverages
     [Espresso]
     class Cappuccino : IBeverage
     {
-        private List<string> ingredients = new List<string>() { "Espresso", "Milk", "Milk Foam", "Water" };
+        private List<string> ingredients = new List<string>() { "Espresso", "Milk", "Milk Foam"};
 
         private string cupType = "small cup";
 

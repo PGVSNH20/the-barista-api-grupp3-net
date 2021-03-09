@@ -40,7 +40,6 @@ internal class FluentEspresso : IFluentEspresso
     public List<string> Ingredients => ingredients;
     public int Water = water;
 
-    //public static bool AddWater(int water) => containsWater = (water > 0) ? true : false;
     public IFluentEspresso AddWater(int v)
     {
         if (!ingredients.Contains("Water"))
@@ -76,101 +75,48 @@ internal class FluentEspresso : IFluentEspresso
 
     public IFluentEspresso AddBeans()
     {
-        //if (containsWater && amount > 4)
-        //{
-        //    ingredients.Add("Espresso");
-        //}
-        ingredients.Add("Espresso");
-        return this;
+        if (this.Ingredients.Contains("Water")){
 
+            ingredients.Add("Espresso");
+            ingredients.Remove("Water");
+            return this;
+        }
+        else
+        {
+            return this;
+        }
     }
 
-
-    //Console.WriteLine("Lägger till bönor!");
-    public static void Validate() => Console.WriteLine("Rätt temperatur för vattnet");
-
-    public static void GrindBeans()
-    {
-    }
-    //=> Console.WriteLine("Rätt temperatur för vattnet");
-  
     public IBeverage ToBeverage()
     {
-        bool IsComparableList = false;        
-        // Check if all ingrediens are present for a espesso or a latte
-
-        foreach (var beverage in avaibleBeverages.Where(bev => this.Ingredients.Count.Equals(bev.Ingredients.Count)))
+        IBeverage beverageToServe;
+        beverageToServe = new CustomBeverage { Ingredients = this.Ingredients };
+        bool IsComparableList = false;
+        var avaibleBevs = avaibleBeverages.Where(bev => this.Ingredients.Count.Equals(bev.Ingredients.Count)).ToList();
+        foreach (var bevToCheck in avaibleBevs)
         {
-            IsComparableList = this.Ingredients.All(ingredient => beverage.Ingredients.Contains(ingredient));
-            Console.WriteLine($"Den nya dryckan innehåller bara ingredienser som finns i {beverage.GetType().Name}s ingredienslista: " + IsComparableList); if (IsComparableList)
-            {
-                Console.WriteLine("Du fick en " + beverage.GetType().Name); Console.WriteLine("Dryckens innehåll:"); 
-                beverage.Ingredients.ForEach(ing => Console.WriteLine("\t" + ing));               
-                this.Ingredients.Clear();
-                return beverage;
-            }
+            // The beverage to be served contains only ingredients from the the avaible beverage types in this class
+            IsComparableList = this.Ingredients.All(ingredient => bevToCheck.Ingredients.Contains(ingredient));
+            if (IsComparableList == true)
+                beverageToServe = bevToCheck;
         }
-        CustomBeverage custom = new CustomBeverage { Ingredients = this.Ingredients }; Console.WriteLine("Drycken blev en " + custom.GetType().Name);
-        this.Ingredients.Clear();       
-        return custom;
-    }
+        BeverageDeclaration(beverageToServe);
+        return beverageToServe;
 
-    //Kommentar
-    private IBeverage CheckIngredients(List<IBeverage> beverages)
+    }
+    private void BeverageDeclaration(IBeverage beverage)
     {
-        foreach (var bev in beverages.Where(bev => bev.Ingredients.Count == this.Ingredients.Count))
-        {
-            foreach (var i in this.Ingredients)
-            {
-                for (int x = 0; x < bev.Ingredients.Count; x++)
-                {
-                    if (i == bev.Ingredients[x])
-                    {
-                        if (x == bev.Ingredients.Count - 1)
-                        {
-                            Console.WriteLine(bev);
-                            return bev;
-                        }
-                    }
+        Console.WriteLine($"Du fick en {beverage.GetType().Name} serverad i en {beverage.CupType}!");
+        Console.WriteLine("Dryckens innehåll: ");
+        beverage.Ingredients.ForEach(ing => Console.WriteLine("\t" + ing));
 
-                    else
-                    {
-                        Console.WriteLine(i + " Är vi här ?");
-                        continue;
-                    }
-                }
-            }
-        }
-        return null;
+        this.Ingredients.Clear();
     }
-
-
-    /* AddWater(20)
-                            .AddBeans(new Bean(){ 
-                                AmountInG = 5,
-                                Sort = CoffeSorts.Robusta})
-    						.Validate(e => e.Temerature > 90)
-                        .ToBeverage()*/
-
 }
 
 [AttributeUsage(AttributeTargets.Class)]
 class EspressoAttribute : Attribute
 {
     public byte Temperature { get; set; }
-    //    public List<string> Ingredients;
-    //    public string CupType { get; set; }
-    //}
-}
-
-// Lägg till klassen senare i AddBeans(), försöker få allt att fungera nu
-class Bean
-{
-    private int amountIng;
-    private string sort;
-
-    public int AmountInG => amountIng;
-    public string Sort => sort;
-
 
 }

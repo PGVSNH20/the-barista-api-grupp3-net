@@ -6,7 +6,7 @@ namespace BaristaApi.Beverages
     class Americano : IBeverage
     {
 
-        private List<string> ingredients = new List<string>() { "Espresso", "Espresso", "Water" };
+        private List<string> ingredients = new List<string>() { "Espresso", "Water" };
 
         private string cupType = "small cup";
 
